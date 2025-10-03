@@ -5,7 +5,6 @@ import api from '../services/api';
 
 export default function Lobby() {
   const navigate = useNavigate();
-  const [username, setUsername] = useState('');
   const [roomName, setRoomName] = useState('');
   const [roomCode, setRoomCode] = useState('');
   const [isPublic, setIsPublic] = useState(true);
@@ -13,9 +12,15 @@ export default function Lobby() {
   const [showCreateForm, setShowCreateForm] = useState(false);
   const [error, setError] = useState('');
 
+  const username = localStorage.getItem('tictactoe_nickname');
+  if (!username) {
+    navigate('/');
+  }
+
   useEffect(() => {
     loadRooms();
     const interval = setInterval(loadRooms, 5000);
+    
     return () => clearInterval(interval);
   }, []);
 
@@ -95,7 +100,7 @@ export default function Lobby() {
           </div>
         )}
 
-        {/* Username Input */}
+        {/* Username Input
         <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-xl p-6 mb-6">
           <label className="block text-white font-semibold mb-2">Tu Nombre</label>
           <input
@@ -106,7 +111,7 @@ export default function Lobby() {
             className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white placeholder-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
             maxLength={20}
           />
-        </div>
+        </div> */}
 
         <div className="grid lg:grid-cols-2 gap-6">
           {/* Create/Join Room */}

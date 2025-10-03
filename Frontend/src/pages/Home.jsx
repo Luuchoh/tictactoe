@@ -1,8 +1,36 @@
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Gamepad2, Users, BarChart3, Globe } from 'lucide-react';
+import NicknameModal from '../components/NicknameModal';
 
 export default function Home() {
   const navigate = useNavigate();
+  const [showNicknameModal, setShowNicknameModal] = useState(false);
+  const [nickname, setNickname] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Load saved nickname on component mount
+  useEffect(() => {
+    const savedNickname = localStorage.getItem('tictactoe_nickname');
+    if (savedNickname) {
+      setNickname(savedNickname);
+    }
+    setIsLoading(false);
+  }, []);
+
+  const handleOnlinePlay = () => {
+      setShowNicknameModal(true);
+  };
+
+  const handleNicknameSubmit = (e) => {
+    e.preventDefault();
+    const trimmedNickname = nickname.trim();
+    if (trimmedNickname) {
+      localStorage.setItem('tictactoe_nickname', trimmedNickname);
+      setShowNicknameModal(false);
+      navigate('/lobby', { state: { username: trimmedNickname } });
+    }
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4">
@@ -37,7 +65,7 @@ export default function Home() {
 
           {/* Online Game */}
           <button
-            onClick={() => navigate('/lobby')}
+            onClick={handleOnlinePlay}
             className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-8 hover:bg-white/20 transition-all duration-300 transform hover:scale-105"
           >
             <div className="flex flex-col items-center text-center">
@@ -81,6 +109,14 @@ export default function Home() {
           </div>
         </div>
       </div>
+
+      <NicknameModal
+        isOpen={showNicknameModal}
+        onClose={() => setShowNicknameModal(false)}
+        nickname={nickname}
+        setNickname={setNickname}
+        onSubmit={handleNicknameSubmit}
+      />
     </div>
   );
 }

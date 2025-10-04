@@ -50,7 +50,7 @@ Juego de Tres en Línea con funcionalidad multijugador local y en red, usando We
 ```bash
 # Clonar el repositorio
 git clone <repository-url>
-cd tic-tac-toe-multiplayer
+cd tictactoe
 
 # Levantar todos los servicios
 docker-compose up --build

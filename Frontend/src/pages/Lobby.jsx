@@ -13,9 +13,11 @@ export default function Lobby() {
   const [error, setError] = useState('');
 
   const username = localStorage.getItem('tictactoe_nickname');
-  if (!username) {
-    navigate('/');
-  }
+  useEffect(() => {
+    if (!username) {
+      navigate('/');
+    }
+  }, [username]);
 
   useEffect(() => {
     loadRooms();

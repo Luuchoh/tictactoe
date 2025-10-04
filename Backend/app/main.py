@@ -5,7 +5,7 @@ from contextlib import asynccontextmanager
 
 from app.core.config import settings
 from app.database.session import engine, Base
-from app.api.routes import game, player, room
+from app.api.routes import game, player, room, stats
 from app.websocket.game_handler import GameHandler
 
 # Create Socket.IO server
@@ -37,7 +37,7 @@ app = FastAPI(
 # Configure CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=settings.CORS_ORIGINS,
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -47,7 +47,7 @@ app.add_middleware(
 app.include_router(player.router, prefix="/api/players", tags=["players"])
 app.include_router(game.router, prefix="/api/games", tags=["games"])
 app.include_router(room.router, prefix="/api/rooms", tags=["rooms"])
-# app.include_router(stats.router, prefix="/api/stats", tags=["statistics"])
+app.include_router(stats.router, prefix="/api/stats", tags=["statistics"])
 
 # Socket.IO events
 @sio.event

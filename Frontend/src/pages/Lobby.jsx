@@ -100,19 +100,6 @@ export default function Lobby() {
           </div>
         )}
 
-        {/* Username Input
-        <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-xl p-6 mb-6">
-          <label className="block text-white font-semibold mb-2">Tu Nombre</label>
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            placeholder="Ingresa tu nombre de usuario"
-            className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white placeholder-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            maxLength={20}
-          />
-        </div> */}
-
         <div className="grid lg:grid-cols-2 gap-6">
           {/* Create/Join Room */}
           <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-xl p-6">

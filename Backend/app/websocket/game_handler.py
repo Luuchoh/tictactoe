@@ -153,7 +153,7 @@ class GameHandler:
                 # Validate turn
                 current_player = game.player1_id if game.current_turn == 1 else game.player2_id
                 if current_player != player_id:
-                    await self.sio.emit('error', {'message': ''}, room=sid)
+                    await self.sio.emit('error', {'message': 'Not your turn'}, room=sid)
                     return
 
                 # Validate position is empty
